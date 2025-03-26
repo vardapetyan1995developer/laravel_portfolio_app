@@ -2,58 +2,67 @@
 
 namespace App\Services;
 
-namespace App\Services;
-
+use App\Repositories\Contracts\ITelegramRepository;
 use App\Services\Contracts\ITelegramService;
-use Illuminate\Http\Client\ConnectionException as ConnectionExceptionAlias;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+use DefStudio\Telegraph\Exceptions\TelegraphException;
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 
 class TelegramService implements ITelegramService
 {
-    private string $token;
-    private string $apiUrl;
+    private ITelegramRepository $telegramRepository;
 
-    public function __construct()
+    /**
+     * @param ITelegramRepository $telegramRepository
+     */
+    public function __construct(ITelegramRepository $telegramRepository)
     {
-        $this->token = config('telegrambot.telegram_bot_token');
-        $this->apiUrl = "https://api.telegram.org/bot{$this->token}";
+        $this->telegramRepository = $telegramRepository;
     }
 
     /**
-     * Send a message to a Telegram chat.
-     *
      * @param int $chatId
-     * @param string $text
+     * @param string $message
      * @return void
-     * @throws ConnectionExceptionAlias
+     * @throws TelegraphException
      */
-    public function sendMessage(int $chatId, string $text): void
+    public function sendMessage(int $chatId, string $message): void
     {
-        try
-        {
-            $response = Http::post("{$this->apiUrl}/sendMessage", [
-                'chat_id' => $chatId,
-                'text'    => $text
-            ]);
+        $chat = $this->telegramRepository->getChatById($chatId);
+        if (!$chat) throw new TelegraphException("Chat ID {$chatId} not found.");
 
-            if ($response->successful())
-            {
-                Log::info("Message sent successfully to chat ID {$chatId}");
-            }
-            else
-            {
-                Log::error("Failed to send message: {$response->body()}");
-                throw new \Exception('Failed to send message.');
-            }
-        }
-        catch (ConnectionExceptionAlias $e)
-        {
-            Log::error("Connection error while sending message: {$e->getMessage()}");
-            throw new ConnectionExceptionAlias("Could not connect to Telegram API.");
-        } catch (\Exception $e) {
-            Log::error("An error occurred while sending message: {$e->getMessage()}");
-            throw $e;
-        }
+        $chat->message($message)->send();
+    }
+
+    /**
+     * @param int $chatId
+     * @return void
+     * @throws TelegraphException
+     */
+    public function sendHelpMessage(int $chatId): void
+    {
+        $chat = $this->telegramRepository->getChatById($chatId);
+        if (!$chat) throw new TelegraphException("Chat ID {$chatId} not found.");
+
+        $chat->message("*Hello!* For now I can only speak.😊")->send();
+    }
+
+    /**
+     * @param int $chatId
+     * @return void
+     * @throws TelegraphException
+     */
+    public function sendActionsKeyboard(int $chatId): void
+    {
+        $chat = $this->telegramRepository->getChatById($chatId);
+        if (!$chat) throw new TelegraphException("Chat ID {$chatId} not found.");
+
+        $chat->message('Choose some action')
+            ->keyboard(Keyboard::make()->buttons([
+                Button::make('Go to website')->url('https://it.zeepup.com'),
+                Button::make('Like')->action('like'),
+                Button::make('Subscribe')->action('subscribe')->param('channel_name', '@armdevstack'),
+            ]))
+            ->send();
     }
 }

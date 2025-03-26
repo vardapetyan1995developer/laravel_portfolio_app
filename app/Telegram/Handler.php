@@ -2,21 +2,36 @@
 
 namespace App\Telegram;
 
-use DefStudio\Telegraph\Facades\Telegraph;
+use App\Services\Contracts\IOpenAIService;
+use Exception;
+use App\Services\Contracts\ITelegramService;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
-use DefStudio\Telegraph\Keyboard\Button;
-use DefStudio\Telegraph\Keyboard\Keyboard;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Stringable;
 
 class Handler extends WebhookHandler
 {
+    private ITelegramService $telegramService;
+    private IOpenAIService $openAIService;
+
+    /**
+     * @param ITelegramService $telegramService
+     * @param IOpenAIService $openAIService
+     */
+    public function __construct(ITelegramService $telegramService, IOpenAIService $openAIService)
+    {
+        $this->telegramService = $telegramService;
+        $this->openAIService = $openAIService;
+    }
+
     /**
      * @param string $name
      * @return void
      */
     public function hello(string $name): void
     {
-        $this->reply("Hello $name");
+        $this->telegramService->sendMessage($this->chat->id, "Hello $name");
     }
 
     /**
@@ -24,7 +39,7 @@ class Handler extends WebhookHandler
      */
     public function help(): void
     {
-        $this->reply("*Hello!* For now i can only speak.😊");
+        $this->telegramService->sendHelpMessage($this->chat->id);
     }
 
     /**
@@ -32,7 +47,14 @@ class Handler extends WebhookHandler
      */
     public function like(): void
     {
-        Telegraph::message('Thank you for like😊')->send();
+        try
+        {
+            $this->telegramService->sendMessage($this->chat->id, 'Thank you for like😊');
+        }
+        catch (Exception $e)
+        {
+            Log::error('Error sending Telegram message: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -40,7 +62,8 @@ class Handler extends WebhookHandler
      */
     public function subscribe(): void
     {
-        $this->reply('Thank you for subscription to ' . $this->data->get('channel_name'));
+        $channelName = $this->data->get('channel_name') ?? 'unknown channel';
+        $this->telegramService->sendMessage($this->chat->id, "Thank you for subscribing to $channelName");
     }
 
     /**
@@ -48,13 +71,14 @@ class Handler extends WebhookHandler
      */
     public function actions(): void
     {
-        Telegraph::message('Choose some action')
-            ->keyboard(Keyboard::make()->buttons([
-                Button::make('Go to website')->url('https://it.zeepup.com'),
-                Button::make('Like')->action('like'),
-                Button::make('Subscribe')->action('subscribe')
-                    ->param('channel_name', '@armdevstack'),
-            ]))->send();
+        try
+        {
+            $this->telegramService->sendActionsKeyboard($this->chat->id);
+        }
+        catch (Exception $e)
+        {
+            Log::error('Telegram API Error: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -63,14 +87,11 @@ class Handler extends WebhookHandler
      */
     protected function handleUnknownCommand(Stringable $text): void
     {
-        if ($text->value() === '/start')
-        {
-            $this->reply("Welcome back😊😊😊");
-        }
-        else
-        {
-            $this->reply('Unknown command🙁🙁🙁');
-        }
+        $response = ($text->value() === '/start')
+            ? "Welcome back😊😊😊"
+            : "Unknown command🙁🙁🙁";
+
+        $this->telegramService->sendMessage($this->chat->id, $response);
     }
 
     /**
@@ -79,7 +100,7 @@ class Handler extends WebhookHandler
      */
     protected function handleChatMessage(Stringable $text): void
     {
-        //$this->reply($text);
-        $this->reply(false);
+        $response = $this->openAIService->ask($text->value());
+        $this->reply($response);
     }
 }
