@@ -2,27 +2,26 @@
 
 namespace App\Telegram;
 
-use App\Services\Contracts\IOpenAIService;
+use App\Services\Contracts\IAIService;
 use Exception;
 use App\Services\Contracts\ITelegramService;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Stringable;
 
 class Handler extends WebhookHandler
 {
     private ITelegramService $telegramService;
-    private IOpenAIService $openAIService;
+    private IAIService $aiService;
 
     /**
      * @param ITelegramService $telegramService
-     * @param IOpenAIService $openAIService
+     * @param IAIService $aiService
      */
-    public function __construct(ITelegramService $telegramService, IOpenAIService $openAIService)
+    public function __construct(ITelegramService $telegramService, IAIService $aiService)
     {
         $this->telegramService = $telegramService;
-        $this->openAIService = $openAIService;
+        $this->aiService = $aiService;
     }
 
     /**
@@ -100,7 +99,7 @@ class Handler extends WebhookHandler
      */
     protected function handleChatMessage(Stringable $text): void
     {
-        $response = $this->openAIService->ask($text->value());
+        $response = $this->aiService->ask($text->value());
         $this->reply($response);
     }
 }

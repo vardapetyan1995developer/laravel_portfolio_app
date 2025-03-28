@@ -2,7 +2,7 @@
 
 namespace App\Services\Contracts;
 
-interface IOpenAIService
+interface IAIService
 {
     /**
      * @param string $message

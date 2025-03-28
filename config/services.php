@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'openai' => [
+        'api_key' => env('OPENAI_API_KEY'),
+    ],
+
+    'ollama' => [
+        'url' => env('OLLAMA_API_URL', 'http://localhost:11434/api/generate'),
+        'model' => env('OLLAMA_MODEL', 'mistral'), // You can set different models like `gemma`, `llama3`
+    ],
 ];

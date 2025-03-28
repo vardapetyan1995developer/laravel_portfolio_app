@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Services\Contracts\IOpenAIService;
-use App\Services\OpenAIService;
+use App\Services\Contracts\IAIService;
+use App\Services\OllamaService;
 use Illuminate\Support\ServiceProvider;
 
 class OpenAIServiceProvider extends ServiceProvider
@@ -13,7 +13,9 @@ class OpenAIServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(IOpenAIService::class, OpenAIService::class);
+        $aiService = config('ai.services.' . config('ai.default'));
+
+        $this->app->bind(IAIService::class, $aiService);
     }
 
     /**
