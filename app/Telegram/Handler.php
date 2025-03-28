@@ -2,7 +2,9 @@
 
 namespace App\Telegram;
 
+use App\Models\QuizSession;
 use App\Services\Contracts\IAIService;
+use App\Services\Contracts\IQuizService;
 use Exception;
 use App\Services\Contracts\ITelegramService;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
@@ -13,15 +15,26 @@ class Handler extends WebhookHandler
 {
     private ITelegramService $telegramService;
     private IAIService $aiService;
+    private IQuizService $quizService;
 
     /**
      * @param ITelegramService $telegramService
      * @param IAIService $aiService
+     * @param IQuizService $quizService
      */
-    public function __construct(ITelegramService $telegramService, IAIService $aiService)
+    public function __construct(ITelegramService $telegramService, IAIService $aiService, IQuizService $quizService)
     {
         $this->telegramService = $telegramService;
         $this->aiService = $aiService;
+        $this->quizService = $quizService;
+    }
+
+    /**
+     * @return void
+     */
+    public function quiz(): void
+    {
+        $this->quizService->startQuiz($this->chat->id);
     }
 
     /**
@@ -94,12 +107,36 @@ class Handler extends WebhookHandler
     }
 
     /**
+     * Handle chat message for quiz
+     *
      * @param Stringable $text
      * @return void
      */
     protected function handleChatMessage(Stringable $text): void
     {
+        $chatId = $this->chat->id;
+        $quizSession = QuizSession::query()->where('chat_id', $chatId)->first();
+
+        if ($quizSession)
+        {
+            $this->quizService->checkQuizAnswer($chatId, $quizSession->question_id, $text->value());
+            $quizSession->delete();
+        }
+        else
+        {
+            $this->telegramService->sendMessage($chatId, 'Please start the quiz first using /quiz.');
+        }
+    }
+
+    /**
+     * Handle chat message for ai
+     *
+     * @param Stringable $text
+     * @return void
+     */
+    /*protected function handleChatMessage(Stringable $text): void
+    {
         $response = $this->aiService->ask($text->value());
         $this->reply($response);
-    }
+    }*/
 }

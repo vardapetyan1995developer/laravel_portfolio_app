@@ -59,6 +59,7 @@ class TelegramService implements ITelegramService
 
         $chat->message('Choose some action')
             ->keyboard(Keyboard::make()->buttons([
+                Button::make('Quiz')->action('quiz'),
                 Button::make('Go to website')->url('https://it.zeepup.com'),
                 Button::make('Like')->action('like'),
                 Button::make('Subscribe')->action('subscribe')->param('channel_name', '@armdevstack'),
