@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12 mt-5">
+    <div class="py-12 mt-5 mb-5">
         <div class="container-xl">
             <div class="row g-4">
 
@@ -32,7 +32,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

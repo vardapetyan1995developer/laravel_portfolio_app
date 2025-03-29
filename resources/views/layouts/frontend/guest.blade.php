@@ -17,6 +17,8 @@
         <script src="{{ asset('lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
     </head>
     <body>
+        @include('layouts.frontend.partial.navigation')
+
         <div class="container mt-5">
             {{ $slot }}
         </div>
