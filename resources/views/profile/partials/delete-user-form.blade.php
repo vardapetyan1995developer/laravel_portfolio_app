@@ -53,8 +53,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                        <button type="submit" class="btn btn-danger ms-3">
+                        <button type="button" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-danger ms-3 shadow-none">
                             {{ __('Delete Account') }}
                         </button>
                     </div>

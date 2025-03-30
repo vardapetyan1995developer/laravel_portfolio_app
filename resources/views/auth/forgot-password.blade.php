@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
         <div class="col-md-4">
             <div class="mb-4 text-secondary">
                 {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
