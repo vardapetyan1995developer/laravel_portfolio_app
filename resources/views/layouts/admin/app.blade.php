@@ -4,32 +4,58 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <link rel="stylesheet" href="{{ asset('lib/bootstrap-5.3.3-dist/css/bootstrap.min.css') }}">
-
+    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="{{ asset('lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
 </head>
-<body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    @include('layouts.admin.partial.navigation')
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    @include('layouts.admin.partial.sidebars.index')
+    <!-- End of Sidebar -->
 
-    <!-- Page Heading -->
-    @isset($header)
-        <header class="bg-white dark:bg-gray-800 shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {{ $header }}
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            @include('layouts.admin.partial.navbars.index')
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <x-custom.heading>Dashboard</x-custom.heading>
             </div>
-        </header>
-    @endisset
-
-    <!-- Page Content -->
-    <main>
-        {{ $slot }}
-    </main>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+    </div>
+    <!-- End of Content Wrapper -->
 </div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<x-custom.scroll-to-top-button></x-custom.scroll-to-top-button>
+
+<!-- Logout Modal-->
+@include('layouts.admin.partial.modals.logout-modal')
+
+<!-- Bootstrap core JavaScript-->
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+<!-- Page level plugins -->
+{{--<script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>--}}
+<!-- Page level custom scripts -->
+{{--<script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>--}}
+{{--<script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>--}}
 </body>
 </html>
