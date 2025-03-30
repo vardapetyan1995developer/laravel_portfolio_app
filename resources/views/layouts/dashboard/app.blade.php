@@ -15,7 +15,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
     <!-- Sidebar -->
-    @include('layouts.admin.partial.sidebars.index')
+    @include('layouts.dashboard.partial.sidebars.index')
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -23,7 +23,7 @@
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
-            @include('layouts.admin.partial.navbars.index')
+            @include('layouts.dashboard.partial.navbars.index')
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
@@ -43,7 +43,7 @@
 <x-custom.scroll-to-top-button></x-custom.scroll-to-top-button>
 
 <!-- Logout Modal-->
-@include('layouts.admin.partial.modals.logout-modal')
+@include('layouts.dashboard.partial.modals.logout-modal')
 
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
