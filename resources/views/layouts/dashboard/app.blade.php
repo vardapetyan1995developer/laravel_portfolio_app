@@ -8,6 +8,7 @@
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="{{ asset('lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -39,6 +40,8 @@
             {{ $slot }}
         </div>
         <!-- End of Main Content -->
+
+        @include('layouts.dashboard.partial.footer.index')
     </div>
     <!-- End of Content Wrapper -->
 </div>
@@ -50,17 +53,13 @@
 <!-- Logout Modal-->
 @include('layouts.dashboard.partial.modals.logout-modal')
 
-<!-- Bootstrap core JavaScript-->
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- Core plugin JavaScript-->
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-<!-- Custom scripts for all pages-->
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-<!-- Page level plugins -->
-{{--<script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>--}}
-<!-- Page level custom scripts -->
-{{--<script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>--}}
-{{--<script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>--}}
+<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('lib/axios/axios.min.js') }}"></script>
+@stack('dashboard-scripts')
 </body>
 </html>

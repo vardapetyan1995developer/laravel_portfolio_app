@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Bot\TelegramController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use app\Http\Controllers\Site\SiteController;
@@ -11,6 +12,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 Route::middleware('auth')->group(function () {
     Route::prefix('/dashboard')->group(function () {
+        Route::prefix('/telegram')->group(function () {
+            Route::get('/telegraph-bots', [TelegramController::class, 'index'])->name('telegram.telegraph-bots');
+        });
+
         Route::prefix('/profile')->group(function () {
             Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
             Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
