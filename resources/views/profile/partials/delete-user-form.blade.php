@@ -11,7 +11,7 @@
 
     <button
         type="button"
-        class="btn btn-danger"
+        class="btn btn-danger shadow-none btn-delete-user"
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
     >
