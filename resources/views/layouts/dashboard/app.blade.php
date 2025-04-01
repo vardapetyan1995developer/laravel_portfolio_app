@@ -7,6 +7,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/custom.css') }}" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="{{ asset('lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -29,9 +30,13 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <!-- Page Heading -->
-                <x-custom.heading>Dashboard</x-custom.heading>
+                @if(request()->route()->getName() === 'dashboard')
+                    <x-custom.heading>Dashboard</x-custom.heading>
+                @endif
             </div>
             <!-- /.container-fluid -->
+
+            {{ $slot }}
         </div>
         <!-- End of Main Content -->
     </div>

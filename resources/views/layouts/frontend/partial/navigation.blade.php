@@ -12,8 +12,8 @@
             </ul>
 
             <div class="d-flex">
-                <a href="{{ route('register') }}" class="btn btn-success btn-sm shadow-none mx-1" type="submit">Register</a>
                 <a href="{{ route('login') }}" class="btn btn-primary btn-sm shadow-none" type="submit">Login</a>
+                <a href="{{ route('register') }}" class="btn btn-success btn-sm shadow-none mx-1" type="submit">Register</a>
             </div>
         </div>
     </div>

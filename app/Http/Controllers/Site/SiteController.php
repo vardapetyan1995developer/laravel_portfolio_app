@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers\Site;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 
 class SiteController extends Controller
