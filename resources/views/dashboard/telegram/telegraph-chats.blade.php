@@ -62,10 +62,10 @@
         <script>
             $(document).ready(function () {
                 //Chat id hide/show
-                toggleToken('***************');
+                toggle('***************');
             });
 
-            const toggleToken = (symbols) => {
+            const toggle = (symbols) => {
                 const chatIdArea = $('.chat-id-hidden');
 
                 if (chatIdArea.text(symbols)) {

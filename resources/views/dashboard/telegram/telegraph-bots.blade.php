@@ -59,10 +59,10 @@
         <script>
             $(document).ready(function () {
                 //Token hide/show
-                toggleToken('***************');
+                toggle('***************');
             });
 
-            const toggleToken = (symbols) => {
+            const toggle = (symbols) => {
                 const tokenArea = $('.token-hidden');
 
                 if (tokenArea.text(symbols)) {
