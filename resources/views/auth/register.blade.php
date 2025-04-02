@@ -11,12 +11,12 @@
 
                                     <div class="form-group">
                                         <x-input-label for="name" :value="__('Name')" />
-                                        <x-text-input id="name" class="form-control form-control-user shadow-none" type="text" name="name" :value="old('name')" autofocus autocomplete="name" placeholder="Enter Your Name..." />
+                                        <x-text-input id="name" class="form-control form-control-user shadow-none" type="text" name="name" :value="old('name')" autofocus autocomplete="name" placeholder="Your Name" />
                                         <x-input-error :messages="$errors->get('name')" class="text-danger mt-2" />
                                     </div>
                                     <div class="form-group">
                                         <x-input-label for="email" :value="__('Email')" />
-                                        <x-text-input id="email" class="form-control form-control-user shadow-none" type="email" name="email" :value="old('email')" autocomplete="username" placeholder="Enter Email Address..." />
+                                        <x-text-input id="email" class="form-control form-control-user shadow-none" type="email" name="email" :value="old('email')" autocomplete="username" placeholder="Email Address" />
                                         <x-input-error :messages="$errors->get('email')" class="text-danger mt-2" />
                                     </div>
                                     <div class="form-group">

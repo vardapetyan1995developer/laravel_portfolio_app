@@ -31,7 +31,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Bot</h6>
                 <a class="collapse-item" href="{{ route('telegram.telegraph-bots') }}">Telegraph Bots</a>
-                <a class="collapse-item" href="cards.html">Telegraph Chats</a>
+                <a class="collapse-item" href="{{ route('telegram.telegraph-chats') }}">Telegraph Chats</a>
             </div>
         </div>
     </li>

@@ -13,7 +13,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::middleware('auth')->group(function () {
     Route::prefix('/dashboard')->group(function () {
         Route::prefix('/telegram')->group(function () {
-            Route::get('/telegraph-bots', [TelegramController::class, 'index'])->name('telegram.telegraph-bots');
+            Route::get('/telegraph-bots', [TelegramController::class, 'showTelegraphBots'])->name('telegram.telegraph-bots');
+            Route::get('/telegraph-chats', [TelegramController::class, 'showTelegraphChats'])->name('telegram.telegraph-chats');
         });
 
         Route::prefix('/profile')->group(function () {

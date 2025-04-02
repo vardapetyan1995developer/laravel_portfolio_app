@@ -25,4 +25,12 @@ class DashboardTelegramService implements IDashboardTelegramService
     {
         return $this->dashboardTelegramRepository->getAllTelegraphBots();
     }
+
+    /**
+     * @return array|Collection
+     */
+    public function getAllTelegraphChats(): array|Collection
+    {
+        return $this->dashboardTelegramRepository->getAllTelegraphChats();
+    }
 }

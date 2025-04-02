@@ -10,4 +10,8 @@ interface IDashboardTelegramRepository
      * @return array|Collection
      */
     public function getAllTelegraphBots(): array|Collection;
+    /**
+     * @return array|Collection
+     */
+    public function getAllTelegraphChats(): array|Collection;
 }

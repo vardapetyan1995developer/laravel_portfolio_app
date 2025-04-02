@@ -6,7 +6,7 @@
             <div id="content">
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <x-custom.heading>Telegraph Bots</x-custom.heading>
+                    <x-custom.heading>Telegraph Chats</x-custom.heading>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -16,30 +16,33 @@
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Token</th>
+                                        <th>Chat Id</th>
                                         <th>Name</th>
+                                        <th>Telegraph Bot</th>
                                         <th>Created At</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Token</th>
+                                        <th>Chat Id</th>
                                         <th>Name</th>
+                                        <th>Telegraph Bot</th>
                                         <th>Created At</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    @foreach($telegraphBots as $key => $telegraphBot)
+                                    @foreach($telegraphChats as $key => $telegraphChat)
                                         <tr>
                                             <td>{{ ++$loop->index }}</td>
                                             <td>
-                                                <span title="Click to show" class="token-hidden" data-token="{{ $telegraphBot->token }}">
+                                                <span title="Click to show" class="chat-id-hidden" data-chat-id="{{ $telegraphChat->chat_id }}">
                                                     ***************
                                                 </span>
                                             </td>
-                                            <td>{{ $telegraphBot->name }}</td>
-                                            <td>{{ $telegraphBot->created_at }}</td>
+                                            <td>{{ $telegraphChat->name }}</td>
+                                            <td>{{ $telegraphChat->telegraphBot->name }}</td>
+                                            <td>{{ $telegraphChat->created_at }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -58,19 +61,19 @@
     @push('dashboard-scripts')
         <script>
             $(document).ready(function () {
-                //Token hide/show
+                //Chat id hide/show
                 toggleToken('***************');
             });
 
             const toggleToken = (symbols) => {
-                const tokenArea = $('.token-hidden');
+                const chatIdArea = $('.chat-id-hidden');
 
-                if (tokenArea.text(symbols)) {
-                    tokenArea.click(function() {
+                if (chatIdArea.text(symbols)) {
+                    chatIdArea.click(function() {
                         let $this = $(this);
 
                         if ($this.text() === symbols) {
-                            $this.text($this.attr('data-token'));
+                            $this.text($this.attr('data-chat-id'));
                         } else {
                             $this.text(symbols);
                         }

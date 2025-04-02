@@ -21,12 +21,24 @@ class TelegramController extends Controller
     /**
      * @return Renderable
      */
-    public function index(): Renderable
+    public function showTelegraphBots(): Renderable
     {
         $telegraphBots = $this->dashboardTelegramService->getAllTelegraphBots();
 
         return view('dashboard.telegram.telegraph-bots', [
             'telegraphBots' => $telegraphBots,
+        ]);
+    }
+
+    /**
+     * @return Renderable
+     */
+    public function showTelegraphChats(): Renderable
+    {
+        $telegraphChats = $this->dashboardTelegramService->getAllTelegraphChats();
+
+        return view('dashboard.telegram.telegraph-chats', [
+            'telegraphChats' => $telegraphChats,
         ]);
     }
 }
