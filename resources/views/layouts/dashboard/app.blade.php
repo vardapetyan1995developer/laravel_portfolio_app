@@ -9,6 +9,7 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('lib/toastr/css/toastr.min.css') }}">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="{{ asset('lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -60,6 +61,17 @@
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('lib/axios/axios.min.js') }}"></script>
+<script src="{{ asset('lib/toastr/js/toastr.min.js') }}"></script>
 @stack('dashboard-scripts')
+
+@if(session('success'))
+    <script>
+        toastr.info('{{ session('success') }}');
+    </script>
+@elseif(session('fail'))
+    <script>
+        toastr.error('{{ session('fail') }}');
+    </script>
+@endif
 </body>
 </html>

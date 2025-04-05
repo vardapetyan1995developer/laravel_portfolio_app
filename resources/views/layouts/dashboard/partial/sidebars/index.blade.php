@@ -32,6 +32,7 @@
                 <h6 class="collapse-header">Bot</h6>
                 <a class="collapse-item" href="{{ route('telegram.telegraph-bots') }}">Telegraph Bots</a>
                 <a class="collapse-item" href="{{ route('telegram.telegraph-chats') }}">Telegraph Chats</a>
+                <a class="collapse-item" href="{{ route('telegram.create-telegraph-bot') }}">Create New Bot</a>
             </div>
         </div>
     </li>

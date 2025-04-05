@@ -8,6 +8,10 @@
                 <div class="container-fluid">
                     <x-custom.heading>Telegraph Bots</x-custom.heading>
 
+                    <div class="mb-2">
+                        <a class="btn btn-info btn-sm shadow-none" href="{{ route('telegram.create-telegraph-bot') }}">Create New Bot</a>
+                    </div>
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -19,6 +23,7 @@
                                         <th>Token</th>
                                         <th>Name</th>
                                         <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -27,6 +32,7 @@
                                         <th>Token</th>
                                         <th>Name</th>
                                         <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -40,6 +46,16 @@
                                             </td>
                                             <td>{{ $telegraphBot->name }}</td>
                                             <td>{{ $telegraphBot->created_at }}</td>
+                                            <td>
+                                                <a class="btn btn-secondary shadow-none btn-sm" href="{{ route('telegram.edit-telegraph-bot', $telegraphBot->id) }}">Edit</a>
+
+                                                <form class="form-check-inline" action="{{ route('telegram.delete-telegraph-bot', ['id' => $telegraphBot->id]) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button onclick="return confirm('Are you sure?')" class="btn btn-danger shadow-none btn-sm" type="submit">Delete</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

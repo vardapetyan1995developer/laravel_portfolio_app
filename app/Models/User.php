@@ -49,4 +49,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * @return string
+     */
+    public static function getAuthUser(): string
+    {
+        return auth()->user()->name;
+    }
 }
