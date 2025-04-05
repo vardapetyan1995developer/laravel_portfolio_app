@@ -71,4 +71,13 @@ class DashboardTelegramService implements IDashboardTelegramService
     {
         $this->dashboardTelegramRepository->deleteTelegraphBot($id);
     }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function deleteTelegraphChat(int $id): void
+    {
+        $this->dashboardTelegramRepository->deleteTelegraphChat($id);
+    }
 }

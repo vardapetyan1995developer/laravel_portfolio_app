@@ -20,6 +20,7 @@
                                         <th>Name</th>
                                         <th>Telegraph Bot</th>
                                         <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -29,6 +30,7 @@
                                         <th>Name</th>
                                         <th>Telegraph Bot</th>
                                         <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -43,6 +45,14 @@
                                             <td>{{ $telegraphChat->name }}</td>
                                             <td>{{ $telegraphChat->telegraphBot->name }}</td>
                                             <td>{{ $telegraphChat->created_at }}</td>
+                                            <td>
+                                                <form class="form-check-inline" action="{{ route('telegram.delete-telegraph-chat', ['id' => $telegraphChat->id]) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button onclick="return confirm('Are you sure?')" class="btn btn-danger shadow-none btn-sm" type="submit">Delete</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

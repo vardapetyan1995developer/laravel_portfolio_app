@@ -101,4 +101,15 @@ class TelegramController extends Controller
 
         return redirect()->back()->with('success', 'Deleted successfully');
     }
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function deleteTelegraphChat(int $id): RedirectResponse
+    {
+        $this->dashboardTelegramService->deleteTelegraphChat($id);
+
+        return redirect()->back()->with('success', 'Deleted successfully');
+    }
 }

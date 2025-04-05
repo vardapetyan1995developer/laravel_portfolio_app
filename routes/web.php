@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('/telegraph-chats')->group(function () {
                 Route::get('/', [TelegramController::class, 'showTelegraphChats'])->name('telegram.telegraph-chats');
+                Route::delete('/{id}/delete', [TelegramController::class, 'deleteTelegraphChat'])->name('telegram.delete-telegraph-chat');
             });
         });
 

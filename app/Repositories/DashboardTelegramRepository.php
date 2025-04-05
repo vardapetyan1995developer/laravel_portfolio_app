@@ -65,4 +65,14 @@ class DashboardTelegramRepository implements IDashboardTelegramRepository
         $telegraphBot = TelegraphBot::query()->findOrFail($id);
         $telegraphBot->delete();
     }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function deleteTelegraphChat(int $id): void
+    {
+        $telegraphChat = TelegraphChat::query()->findOrFail($id);
+        $telegraphChat->delete();
+    }
 }

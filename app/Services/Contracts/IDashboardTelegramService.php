@@ -38,4 +38,9 @@ interface IDashboardTelegramService
      * @return mixed
      */
     public function deleteTelegraphBot(int $id);
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function deleteTelegraphChat(int $id);
 }
