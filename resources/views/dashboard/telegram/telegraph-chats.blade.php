@@ -39,7 +39,7 @@
                                             <td>{{ ++$loop->index }}</td>
                                             <td>
                                                 <span title="Click to show" class="chat-id-hidden" data-chat-id="{{ $telegraphChat->chat_id }}">
-                                                    ***************
+                                                    *************
                                                 </span>
                                             </td>
                                             <td>{{ $telegraphChat->name }}</td>
@@ -72,7 +72,7 @@
         <script>
             $(document).ready(function () {
                 //Chat id hide/show
-                toggle('***************');
+                toggle('*************');
             });
 
             const toggle = (symbols) => {

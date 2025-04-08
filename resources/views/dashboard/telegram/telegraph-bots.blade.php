@@ -41,7 +41,7 @@
                                             <td>{{ ++$loop->index }}</td>
                                             <td>
                                                 <span title="Click to show" class="token-hidden" data-token="{{ $telegraphBot->token }}">
-                                                    ***************
+                                                    ***********************************************************
                                                 </span>
                                             </td>
                                             <td>{{ $telegraphBot->name }}</td>
@@ -75,7 +75,7 @@
         <script>
             $(document).ready(function () {
                 //Token hide/show
-                toggle('***************');
+                toggle('***********************************************************');
             });
 
             const toggle = (symbols) => {
