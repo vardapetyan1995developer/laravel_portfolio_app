@@ -13,7 +13,6 @@ interface IQuizRepository
      * @return array|null
      */
     public function getQuestionById(int $id): ?array;
-
     /**
      * @param int $questionId
      * @param string $answer
