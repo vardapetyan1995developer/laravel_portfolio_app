@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::prefix('/dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
         Route::prefix('/telegram')->group(function () {
             Route::prefix('/telegraph-bots')->group(function () {
                 Route::get('/', [TelegramController::class, 'showTelegraphBots'])->name('telegram.telegraph-bots');
